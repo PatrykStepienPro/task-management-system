@@ -1,7 +1,0 @@
-﻿services:
-  taskmanagementsystem:
-    image: taskmanagementsystem
-    build:
-      context: .
-      dockerfile: TaskManagementSystem/Dockerfile
-
