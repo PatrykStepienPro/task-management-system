@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Tasks — Task Manager</value></data>
+  <data name="Heading" xml:space="preserve"><value>Tasks</value></data>
+  <data name="NewTask" xml:space="preserve"><value>+ New Task</value></data>
+  <data name="FilterAllProjects" xml:space="preserve"><value>All Projects</value></data>
+  <data name="FilterAllStatuses" xml:space="preserve"><value>All Statuses</value></data>
+  <data name="FilterAllPriorities" xml:space="preserve"><value>All Priorities</value></data>
+  <data name="EditTaskHeader" xml:space="preserve"><value>Edit Task</value></data>
+  <data name="NewTaskHeader" xml:space="preserve"><value>New Task</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Title</value></data>
+  <data name="LabelProject" xml:space="preserve"><value>Project</value></data>
+  <data name="LabelPriority" xml:space="preserve"><value>Priority</value></data>
+  <data name="LabelStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="LabelDueDate" xml:space="preserve"><value>Due Date</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>Description</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>Task title</value></data>
+  <data name="SelectProject" xml:space="preserve"><value>— select —</value></data>
+  <data name="BtnSave" xml:space="preserve"><value>Save</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="BtnEdit" xml:space="preserve"><value>Edit</value></data>
+  <data name="BtnDelete" xml:space="preserve"><value>Delete</value></data>
+  <data name="ColTitle" xml:space="preserve"><value>Title</value></data>
+  <data name="ColProject" xml:space="preserve"><value>Project</value></data>
+  <data name="ColPriority" xml:space="preserve"><value>Priority</value></data>
+  <data name="ColStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="ColDueDate" xml:space="preserve"><value>Due Date</value></data>
+  <data name="EmptyState" xml:space="preserve"><value>No tasks found. Try adjusting filters or create a new task.</value></data>
+  <data name="ValidationTitleRequired" xml:space="preserve"><value>Title is required.</value></data>
+  <data name="ValidationProjectRequired" xml:space="preserve"><value>Please select a project.</value></data>
+  <data name="ErrorLoadPrefix" xml:space="preserve"><value>Failed to load tasks: </value></data>
+  <data name="ErrorSavePrefix" xml:space="preserve"><value>Save failed: </value></data>
+  <data name="ErrorDeletePrefix" xml:space="preserve"><value>Delete failed: </value></data>
+  <data name="Priority_Low" xml:space="preserve"><value>Low</value></data>
+  <data name="Priority_Medium" xml:space="preserve"><value>Medium</value></data>
+  <data name="Priority_High" xml:space="preserve"><value>High</value></data>
+  <data name="Priority_Critical" xml:space="preserve"><value>Critical</value></data>
+  <data name="Status_Todo" xml:space="preserve"><value>To Do</value></data>
+  <data name="Status_InProgress" xml:space="preserve"><value>In Progress</value></data>
+  <data name="Status_Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Cancelled</value></data>
+</root>

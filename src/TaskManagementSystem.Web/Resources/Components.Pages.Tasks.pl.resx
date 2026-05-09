@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Zadania — Menedżer Zadań</value></data>
+  <data name="Heading" xml:space="preserve"><value>Zadania</value></data>
+  <data name="NewTask" xml:space="preserve"><value>+ Nowe zadanie</value></data>
+  <data name="FilterAllProjects" xml:space="preserve"><value>Wszystkie projekty</value></data>
+  <data name="FilterAllStatuses" xml:space="preserve"><value>Wszystkie statusy</value></data>
+  <data name="FilterAllPriorities" xml:space="preserve"><value>Wszystkie priorytety</value></data>
+  <data name="EditTaskHeader" xml:space="preserve"><value>Edytuj zadanie</value></data>
+  <data name="NewTaskHeader" xml:space="preserve"><value>Nowe zadanie</value></data>
+  <data name="LabelTitle" xml:space="preserve"><value>Tytuł</value></data>
+  <data name="LabelProject" xml:space="preserve"><value>Projekt</value></data>
+  <data name="LabelPriority" xml:space="preserve"><value>Priorytet</value></data>
+  <data name="LabelStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="LabelDueDate" xml:space="preserve"><value>Termin</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>Opis</value></data>
+  <data name="PlaceholderTitle" xml:space="preserve"><value>Tytuł zadania</value></data>
+  <data name="SelectProject" xml:space="preserve"><value>— wybierz —</value></data>
+  <data name="BtnSave" xml:space="preserve"><value>Zapisz</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Anuluj</value></data>
+  <data name="BtnEdit" xml:space="preserve"><value>Edytuj</value></data>
+  <data name="BtnDelete" xml:space="preserve"><value>Usuń</value></data>
+  <data name="ColTitle" xml:space="preserve"><value>Tytuł</value></data>
+  <data name="ColProject" xml:space="preserve"><value>Projekt</value></data>
+  <data name="ColPriority" xml:space="preserve"><value>Priorytet</value></data>
+  <data name="ColStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="ColDueDate" xml:space="preserve"><value>Termin</value></data>
+  <data name="EmptyState" xml:space="preserve"><value>Nie znaleziono zadań. Zmień filtry lub utwórz nowe zadanie.</value></data>
+  <data name="ValidationTitleRequired" xml:space="preserve"><value>Tytuł jest wymagany.</value></data>
+  <data name="ValidationProjectRequired" xml:space="preserve"><value>Wybierz projekt.</value></data>
+  <data name="ErrorLoadPrefix" xml:space="preserve"><value>Nie udało się załadować zadań: </value></data>
+  <data name="ErrorSavePrefix" xml:space="preserve"><value>Zapis nie powiódł się: </value></data>
+  <data name="ErrorDeletePrefix" xml:space="preserve"><value>Usunięcie nie powiodło się: </value></data>
+  <data name="Priority_Low" xml:space="preserve"><value>Niski</value></data>
+  <data name="Priority_Medium" xml:space="preserve"><value>Średni</value></data>
+  <data name="Priority_High" xml:space="preserve"><value>Wysoki</value></data>
+  <data name="Priority_Critical" xml:space="preserve"><value>Krytyczny</value></data>
+  <data name="Status_Todo" xml:space="preserve"><value>Do zrobienia</value></data>
+  <data name="Status_InProgress" xml:space="preserve"><value>W toku</value></data>
+  <data name="Status_Done" xml:space="preserve"><value>Ukończone</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Anulowane</value></data>
+</root>

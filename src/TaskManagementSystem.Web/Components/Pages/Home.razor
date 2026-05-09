@@ -1,18 +1,18 @@
 @page "/"
 @using TaskManagementSystem.Web.Models
-@using TaskManagementSystem.Web.Services
 @inject ApiClient Api
+@inject IStringLocalizer<Home> L
 @rendermode InteractiveServer
 
-<PageTitle>Dashboard — Task Manager</PageTitle>
+<PageTitle>@L["PageTitle"]</PageTitle>
 
-<h1 class="mb-4">Dashboard</h1>
+<h1 class="mb-4">@L["Heading"]</h1>
 
 @if (_loading)
 {
     <div class="text-center py-5">
         <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">@L["Loading"]</span>
         </div>
     </div>
 }
@@ -27,7 +27,7 @@ else if (_stats != null)
             <div class="card text-white bg-primary h-100">
                 <div class="card-body text-center">
                     <div class="fs-1 fw-bold">@_stats.TotalProjects</div>
-                    <div>Projects</div>
+                    <div>@L["Projects"]</div>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@ else if (_stats != null)
             <div class="card text-white bg-secondary h-100">
                 <div class="card-body text-center">
                     <div class="fs-1 fw-bold">@_stats.TotalTasks</div>
-                    <div>Total Tasks</div>
+                    <div>@L["TotalTasks"]</div>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@ else if (_stats != null)
             <div class="card text-white bg-warning h-100">
                 <div class="card-body text-center">
                     <div class="fs-1 fw-bold">@_stats.TasksInProgress</div>
-                    <div>In Progress</div>
+                    <div>@L["InProgress"]</div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ else if (_stats != null)
             <div class="card text-white bg-danger h-100">
                 <div class="card-body text-center">
                     <div class="fs-1 fw-bold">@_stats.OverdueTasks</div>
-                    <div>Overdue</div>
+                    <div>@L["Overdue"]</div>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@ else if (_stats != null)
             <div class="card border-secondary h-100">
                 <div class="card-body text-center">
                     <div class="fs-2 fw-bold text-secondary">@_stats.TasksTodo</div>
-                    <div class="text-muted">To Do</div>
+                    <div class="text-muted">@L["ToDo"]</div>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@ else if (_stats != null)
             <div class="card border-success h-100">
                 <div class="card-body text-center">
                     <div class="fs-2 fw-bold text-success">@_stats.TasksDone</div>
-                    <div class="text-muted">Done</div>
+                    <div class="text-muted">@L["Done"]</div>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@ else if (_stats != null)
             <div class="card border-dark h-100">
                 <div class="card-body text-center">
                     <div class="fs-2 fw-bold text-dark">@_stats.TasksCancelled</div>
-                    <div class="text-muted">Cancelled</div>
+                    <div class="text-muted">@L["Cancelled"]</div>
                 </div>
             </div>
         </div>
@@ -87,14 +87,14 @@ else if (_stats != null)
     @if (_stats.TasksPerProject.Count > 0)
     {
         <div class="card mb-4">
-            <div class="card-header fw-bold">Tasks per Project</div>
+            <div class="card-header fw-bold">@L["TasksPerProject"]</div>
             <div class="card-body">
                 <table class="table table-sm table-hover mb-0">
                     <thead>
                         <tr>
-                            <th>Project</th>
-                            <th class="text-end">Tasks</th>
-                            <th>Progress</th>
+                            <th>@L["ColProject"]</th>
+                            <th class="text-end">@L["ColTasks"]</th>
+                            <th>@L["ColProgress"]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,7 +131,7 @@ else if (_stats != null)
         }
         catch (Exception ex)
         {
-            _error = $"Failed to load dashboard: {ex.Message}";
+            _error = $"{L["ErrorPrefix"]}{ex.Message}";
         }
         finally
         {

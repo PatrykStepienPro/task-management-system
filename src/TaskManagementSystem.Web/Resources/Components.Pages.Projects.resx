@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Projects — Task Manager</value></data>
+  <data name="Heading" xml:space="preserve"><value>Projects</value></data>
+  <data name="NewProject" xml:space="preserve"><value>+ New Project</value></data>
+  <data name="EditProjectHeader" xml:space="preserve"><value>Edit Project</value></data>
+  <data name="NewProjectHeader" xml:space="preserve"><value>New Project</value></data>
+  <data name="LabelName" xml:space="preserve"><value>Name</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>Description</value></data>
+  <data name="PlaceholderName" xml:space="preserve"><value>Project name</value></data>
+  <data name="PlaceholderDescription" xml:space="preserve"><value>Optional description</value></data>
+  <data name="BtnSave" xml:space="preserve"><value>Save</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="BtnViewTasks" xml:space="preserve"><value>View Tasks</value></data>
+  <data name="BtnEdit" xml:space="preserve"><value>Edit</value></data>
+  <data name="BtnDelete" xml:space="preserve"><value>Delete</value></data>
+  <data name="EmptyState" xml:space="preserve"><value>No projects yet. Create your first one!</value></data>
+  <data name="NoDescription" xml:space="preserve"><value>No description</value></data>
+  <data name="ValidationNameRequired" xml:space="preserve"><value>Name is required.</value></data>
+  <data name="ErrorLoadPrefix" xml:space="preserve"><value>Failed to load projects: </value></data>
+  <data name="ErrorSavePrefix" xml:space="preserve"><value>Save failed: </value></data>
+  <data name="ErrorDeletePrefix" xml:space="preserve"><value>Delete failed: </value></data>
+</root>

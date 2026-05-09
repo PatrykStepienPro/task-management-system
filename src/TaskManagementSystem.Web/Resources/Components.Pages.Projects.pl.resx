@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>Projekty — Menedżer Zadań</value></data>
+  <data name="Heading" xml:space="preserve"><value>Projekty</value></data>
+  <data name="NewProject" xml:space="preserve"><value>+ Nowy projekt</value></data>
+  <data name="EditProjectHeader" xml:space="preserve"><value>Edytuj projekt</value></data>
+  <data name="NewProjectHeader" xml:space="preserve"><value>Nowy projekt</value></data>
+  <data name="LabelName" xml:space="preserve"><value>Nazwa</value></data>
+  <data name="LabelDescription" xml:space="preserve"><value>Opis</value></data>
+  <data name="PlaceholderName" xml:space="preserve"><value>Nazwa projektu</value></data>
+  <data name="PlaceholderDescription" xml:space="preserve"><value>Opcjonalny opis</value></data>
+  <data name="BtnSave" xml:space="preserve"><value>Zapisz</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Anuluj</value></data>
+  <data name="BtnViewTasks" xml:space="preserve"><value>Zobacz zadania</value></data>
+  <data name="BtnEdit" xml:space="preserve"><value>Edytuj</value></data>
+  <data name="BtnDelete" xml:space="preserve"><value>Usuń</value></data>
+  <data name="EmptyState" xml:space="preserve"><value>Brak projektów. Utwórz pierwszy!</value></data>
+  <data name="NoDescription" xml:space="preserve"><value>Brak opisu</value></data>
+  <data name="ValidationNameRequired" xml:space="preserve"><value>Nazwa jest wymagana.</value></data>
+  <data name="ErrorLoadPrefix" xml:space="preserve"><value>Nie udało się załadować projektów: </value></data>
+  <data name="ErrorSavePrefix" xml:space="preserve"><value>Zapis nie powiódł się: </value></data>
+  <data name="ErrorDeletePrefix" xml:space="preserve"><value>Usunięcie nie powiodło się: </value></data>
+</root>

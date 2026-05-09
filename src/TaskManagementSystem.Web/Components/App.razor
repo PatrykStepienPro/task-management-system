@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@using Microsoft.AspNetCore.Localization
+<!DOCTYPE html>
+<html lang="@Lang">
 
 <head>
     <meta charset="utf-8" />
@@ -14,7 +15,24 @@
 
 <body>
     <Routes />
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
+    <script>
+        Blazor.addEventListener('enhancedload', () => {
+            document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(el => {
+                bootstrap.Dropdown.getOrCreateInstance(el);
+            });
+        });
+    </script>
 </body>
 
 </html>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    private string Lang =>
+        HttpContext?.Features.Get<IRequestCultureFeature>()?.RequestCulture.UICulture.TwoLetterISOLanguageName
+        ?? "en";
+}
