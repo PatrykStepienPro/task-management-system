@@ -1,0 +1,26 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [master, main]
+
+jobs:
+  build-api:
+    name: Build API image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build API Docker image
+        run: docker build -f src/TaskManagementSystem.Api/Dockerfile -t tms-api:ci .
+
+  build-web:
+    name: Build Web image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Web Docker image
+        run: docker build -f src/TaskManagementSystem.Web/Dockerfile -t tms-web:ci .
