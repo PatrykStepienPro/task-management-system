@@ -1,0 +1,172 @@
+@page "/projects"
+@using TaskManagementSystem.Web.Models
+@using TaskManagementSystem.Web.Services
+@inject ApiClient Api
+@rendermode InteractiveServer
+
+<PageTitle>Projects — Task Manager</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Projects</h1>
+    <button class="btn btn-primary" @onclick="() => _showForm = true">+ New Project</button>
+</div>
+
+@if (_showForm)
+{
+    <div class="card mb-4">
+        <div class="card-header">@(_editId.HasValue ? "Edit Project" : "New Project")</div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">Name <span class="text-danger">*</span></label>
+                <input class="form-control" @bind="_formName" placeholder="Project name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" @bind="_formDescription" rows="2" placeholder="Optional description"></textarea>
+            </div>
+            @if (_formError != null)
+            {
+                <div class="alert alert-danger py-2">@_formError</div>
+            }
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" @onclick="SaveProject">Save</button>
+                <button class="btn btn-secondary" @onclick="CancelForm">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_loading)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+}
+else if (_error != null)
+{
+    <div class="alert alert-danger">@_error</div>
+}
+else if (_projects.Count == 0)
+{
+    <div class="alert alert-info">No projects yet. Create your first one!</div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var p in _projects)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@p.Name</h5>
+                        <p class="card-text text-muted small">@(p.Description ?? "No description")</p>
+                        <span class="badge bg-secondary">@p.TaskCount task(s)</span>
+                    </div>
+                    <div class="card-footer d-flex gap-2">
+                        <a class="btn btn-sm btn-outline-secondary" href="tasks?projectId=@p.Id">View Tasks</a>
+                        <button class="btn btn-sm btn-outline-primary" @onclick="() => EditProject(p)">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteProject(p.Id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<ProjectDto> _projects = new();
+    private bool _loading = true;
+    private string? _error;
+
+    private bool _showForm;
+    private int? _editId;
+    private string _formName = string.Empty;
+    private string? _formDescription;
+    private string? _formError;
+
+    protected override async Task OnInitializedAsync() => await LoadProjects();
+
+    private async Task LoadProjects()
+    {
+        _loading = true;
+        _error = null;
+        try
+        {
+            _projects = (await Api.GetAsync<List<ProjectDto>>("api/projects"))!;
+        }
+        catch (Exception ex)
+        {
+            _error = $"Failed to load projects: {ex.Message}";
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private void EditProject(ProjectDto p)
+    {
+        _editId = p.Id;
+        _formName = p.Name;
+        _formDescription = p.Description;
+        _formError = null;
+        _showForm = true;
+    }
+
+    private void CancelForm()
+    {
+        _showForm = false;
+        _editId = null;
+        _formName = string.Empty;
+        _formDescription = null;
+        _formError = null;
+    }
+
+    private async Task SaveProject()
+    {
+        if (string.IsNullOrWhiteSpace(_formName))
+        {
+            _formError = "Name is required.";
+            return;
+        }
+
+        try
+        {
+            if (_editId.HasValue)
+            {
+                await Api.PutAsync<ProjectDto>($"api/projects/{_editId}", new UpdateProjectDto
+                {
+                    Name = _formName,
+                    Description = _formDescription
+                });
+            }
+            else
+            {
+                await Api.PostAsync<ProjectDto>("api/projects", new CreateProjectDto
+                {
+                    Name = _formName,
+                    Description = _formDescription
+                });
+            }
+            CancelForm();
+            await LoadProjects();
+        }
+        catch (Exception ex)
+        {
+            _formError = $"Save failed: {ex.Message}";
+        }
+    }
+
+    private async Task DeleteProject(int id)
+    {
+        try
+        {
+            await Api.DeleteAsync($"api/projects/{id}");
+            await LoadProjects();
+        }
+        catch (Exception ex)
+        {
+            _error = $"Delete failed: {ex.Message}";
+        }
+    }
+}

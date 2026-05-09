@@ -1,0 +1,141 @@
+@page "/"
+@using TaskManagementSystem.Web.Models
+@using TaskManagementSystem.Web.Services
+@inject ApiClient Api
+@rendermode InteractiveServer
+
+<PageTitle>Dashboard — Task Manager</PageTitle>
+
+<h1 class="mb-4">Dashboard</h1>
+
+@if (_loading)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (_error != null)
+{
+    <div class="alert alert-danger">@_error</div>
+}
+else if (_stats != null)
+{
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1 fw-bold">@_stats.TotalProjects</div>
+                    <div>Projects</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-white bg-secondary h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1 fw-bold">@_stats.TotalTasks</div>
+                    <div>Total Tasks</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1 fw-bold">@_stats.TasksInProgress</div>
+                    <div>In Progress</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-white bg-danger h-100">
+                <div class="card-body text-center">
+                    <div class="fs-1 fw-bold">@_stats.OverdueTasks</div>
+                    <div>Overdue</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card border-secondary h-100">
+                <div class="card-body text-center">
+                    <div class="fs-2 fw-bold text-secondary">@_stats.TasksTodo</div>
+                    <div class="text-muted">To Do</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-success h-100">
+                <div class="card-body text-center">
+                    <div class="fs-2 fw-bold text-success">@_stats.TasksDone</div>
+                    <div class="text-muted">Done</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-dark h-100">
+                <div class="card-body text-center">
+                    <div class="fs-2 fw-bold text-dark">@_stats.TasksCancelled</div>
+                    <div class="text-muted">Cancelled</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (_stats.TasksPerProject.Count > 0)
+    {
+        <div class="card mb-4">
+            <div class="card-header fw-bold">Tasks per Project</div>
+            <div class="card-body">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th class="text-end">Tasks</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in _stats.TasksPerProject)
+                        {
+                            var pct = _stats.TotalTasks > 0 ? (item.TaskCount * 100 / _stats.TotalTasks) : 0;
+                            <tr>
+                                <td>@item.ProjectName</td>
+                                <td class="text-end">@item.TaskCount</td>
+                                <td style="width:40%">
+                                    <div class="progress" style="height:12px">
+                                        <div class="progress-bar" style="width:@pct%">@pct%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    private DashboardStatsDto? _stats;
+    private bool _loading = true;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _stats = await Api.GetAsync<DashboardStatsDto>("api/dashboard");
+        }
+        catch (Exception ex)
+        {
+            _error = $"Failed to load dashboard: {ex.Message}";
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

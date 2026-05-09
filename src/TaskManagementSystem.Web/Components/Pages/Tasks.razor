@@ -1,0 +1,323 @@
+@page "/tasks"
+@using TaskManagementSystem.Web.Models
+@using TaskManagementSystem.Web.Services
+@inject ApiClient Api
+@rendermode InteractiveServer
+
+<PageTitle>Tasks — Task Manager</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Tasks</h1>
+    <button class="btn btn-primary" @onclick="() => { _showForm = true; _editId = null; ResetForm(); }">+ New Task</button>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row g-2">
+            <div class="col-md-4">
+                <select class="form-select" @bind="_filterProjectId" @bind:after="LoadTasks">
+                    <option value="">All Projects</option>
+                    @foreach (var p in _projects)
+                    {
+                        <option value="@p.Id">@p.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" @bind="_filterStatus" @bind:after="LoadTasks">
+                    <option value="">All Statuses</option>
+                    @foreach (var s in Enum.GetValues<TaskItemStatus>())
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" @bind="_filterPriority" @bind:after="LoadTasks">
+                    <option value="">All Priorities</option>
+                    @foreach (var p in Enum.GetValues<Priority>())
+                    {
+                        <option value="@p">@p</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (_showForm)
+{
+    <div class="card mb-4">
+        <div class="card-header">@(_editId.HasValue ? "Edit Task" : "New Task")</div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label">Title <span class="text-danger">*</span></label>
+                    <input class="form-control" @bind="_formTitle" placeholder="Task title" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Project <span class="text-danger">*</span></label>
+                    <select class="form-select" @bind="_formProjectId">
+                        <option value="0">— select —</option>
+                        @foreach (var p in _projects)
+                        {
+                            <option value="@p.Id">@p.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Priority</label>
+                    <select class="form-select" @bind="_formPriority">
+                        @foreach (var p in Enum.GetValues<Priority>())
+                        {
+                            <option value="@p">@p</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" @bind="_formStatus">
+                        @foreach (var s in Enum.GetValues<TaskItemStatus>())
+                        {
+                            <option value="@s">@s</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-control" @bind="_formDueDate" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" @bind="_formDescription" rows="2"></textarea>
+                </div>
+            </div>
+            @if (_formError != null)
+            {
+                <div class="alert alert-danger mt-3 py-2">@_formError</div>
+            }
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-success" @onclick="SaveTask">Save</button>
+                <button class="btn btn-secondary" @onclick="CancelForm">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_loading)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+}
+else if (_error != null)
+{
+    <div class="alert alert-danger">@_error</div>
+}
+else if (_tasks.Count == 0)
+{
+    <div class="alert alert-info">No tasks found. Try adjusting filters or create a new task.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Project</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in _tasks)
+                {
+                    <tr>
+                        <td>
+                            <span class="fw-semibold">@t.Title</span>
+                            @if (!string.IsNullOrEmpty(t.Description))
+                            {
+                                <br /><small class="text-muted">@t.Description</small>
+                            }
+                        </td>
+                        <td><span class="badge bg-light text-dark">@t.ProjectName</span></td>
+                        <td><span class="badge @PriorityBadge(t.Priority)">@t.Priority</span></td>
+                        <td><span class="badge @StatusBadge(t.Status)">@t.Status</span></td>
+                        <td>
+                            @if (t.DueDate.HasValue)
+                            {
+                                var overdue = t.DueDate.Value < DateTime.UtcNow && t.Status != TaskItemStatus.Done && t.Status != TaskItemStatus.Cancelled;
+                                <span class="@(overdue ? "text-danger fw-bold" : "")">
+                                    @t.DueDate.Value.ToString("yyyy-MM-dd")
+                                    @if (overdue) { <span> !</span> }
+                                </span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => EditTask(t)">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteTask(t.Id)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    [SupplyParameterFromQuery] public int? ProjectId { get; set; }
+
+    private List<TaskItemDto> _tasks = new();
+    private List<ProjectDto> _projects = new();
+    private bool _loading = true;
+    private string? _error;
+
+    private string? _filterProjectId;
+    private string? _filterStatus;
+    private string? _filterPriority;
+
+    private bool _showForm;
+    private int? _editId;
+    private string _formTitle = string.Empty;
+    private string? _formDescription;
+    private Priority _formPriority = Priority.Medium;
+    private TaskItemStatus _formStatus = TaskItemStatus.Todo;
+    private DateTime? _formDueDate;
+    private int _formProjectId;
+    private string? _formError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ProjectId.HasValue)
+            _filterProjectId = ProjectId.Value.ToString();
+
+        _projects = (await Api.GetAsync<List<ProjectDto>>("api/projects"))!;
+        await LoadTasks();
+    }
+
+    private async Task LoadTasks()
+    {
+        _loading = true;
+        _error = null;
+        try
+        {
+            var qs = new List<string>();
+            if (!string.IsNullOrEmpty(_filterStatus)) qs.Add($"status={_filterStatus}");
+            if (!string.IsNullOrEmpty(_filterPriority)) qs.Add($"priority={_filterPriority}");
+            if (!string.IsNullOrEmpty(_filterProjectId)) qs.Add($"projectId={_filterProjectId}");
+
+            var url = "api/tasks" + (qs.Count > 0 ? "?" + string.Join("&", qs) : "");
+            _tasks = (await Api.GetAsync<List<TaskItemDto>>(url))!;
+        }
+        catch (Exception ex)
+        {
+            _error = $"Failed to load tasks: {ex.Message}";
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private void EditTask(TaskItemDto t)
+    {
+        _editId = t.Id;
+        _formTitle = t.Title;
+        _formDescription = t.Description;
+        _formPriority = t.Priority;
+        _formStatus = t.Status;
+        _formDueDate = t.DueDate;
+        _formProjectId = t.ProjectId;
+        _formError = null;
+        _showForm = true;
+    }
+
+    private void CancelForm()
+    {
+        _showForm = false;
+        _editId = null;
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        _formTitle = string.Empty;
+        _formDescription = null;
+        _formPriority = Priority.Medium;
+        _formStatus = TaskItemStatus.Todo;
+        _formDueDate = null;
+        _formProjectId = _projects.FirstOrDefault()?.Id ?? 0;
+        _formError = null;
+    }
+
+    private async Task SaveTask()
+    {
+        if (string.IsNullOrWhiteSpace(_formTitle)) { _formError = "Title is required."; return; }
+        if (_formProjectId == 0) { _formError = "Please select a project."; return; }
+
+        try
+        {
+            if (_editId.HasValue)
+            {
+                await Api.PutAsync<TaskItemDto>($"api/tasks/{_editId}", new UpdateTaskItemDto
+                {
+                    Title = _formTitle,
+                    Description = _formDescription,
+                    Priority = _formPriority,
+                    Status = _formStatus,
+                    DueDate = _formDueDate
+                });
+            }
+            else
+            {
+                await Api.PostAsync<TaskItemDto>("api/tasks", new CreateTaskItemDto
+                {
+                    Title = _formTitle,
+                    Description = _formDescription,
+                    Priority = _formPriority,
+                    Status = _formStatus,
+                    DueDate = _formDueDate,
+                    ProjectId = _formProjectId
+                });
+            }
+            CancelForm();
+            await LoadTasks();
+        }
+        catch (Exception ex)
+        {
+            _formError = $"Save failed: {ex.Message}";
+        }
+    }
+
+    private async Task DeleteTask(int id)
+    {
+        try
+        {
+            await Api.DeleteAsync($"api/tasks/{id}");
+            await LoadTasks();
+        }
+        catch (Exception ex)
+        {
+            _error = $"Delete failed: {ex.Message}";
+        }
+    }
+
+    private static string PriorityBadge(Priority p) => p switch
+    {
+        Priority.Critical => "bg-danger",
+        Priority.High => "bg-warning text-dark",
+        Priority.Medium => "bg-info text-dark",
+        _ => "bg-secondary"
+    };
+
+    private static string StatusBadge(TaskItemStatus s) => s switch
+    {
+        TaskItemStatus.Done => "bg-success",
+        TaskItemStatus.InProgress => "bg-primary",
+        TaskItemStatus.Cancelled => "bg-dark",
+        _ => "bg-secondary"
+    };
+}

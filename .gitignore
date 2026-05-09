@@ -1,6 +1,36 @@
+## Build output
 bin/
 obj/
-/packages/
-riderModule.iml
+out/
+
+## NuGet
+packages/
+*.nupkg
+.nuget/
+
+## IDE
+.idea/
+.vs/
+*.user
+*.suo
+*.userprefs
 /_ReSharper.Caches/
-/.idea
+riderModule.iml
+
+## Environment / secrets
+.env
+*.env.local
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Docker volumes (local)
+sqlserver_data/
+
+## Logs
+*.log
+logs/
+
+## Publish
+publish/
