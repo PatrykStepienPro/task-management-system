@@ -1,6 +1,30 @@
 # Task Management System
 
-A full-stack task management application built with **.NET 8**, demonstrating clean layered architecture, RESTful API design, and modern Blazor UI.
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
+![EF Core](https://img.shields.io/badge/EF_Core-8.0-512BD4?logo=dotnet&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?logo=microsoftsqlserver&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
+![xUnit](https://img.shields.io/badge/Tests-21_passed-brightgreen?logo=checkmarx&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+A full-stack task management application built with **.NET 8**, demonstrating clean layered architecture, RESTful API design, and modern Blazor UI. Supports English and Polish 🇵🇱.
+
+## Preview
+
+| Dashboard | Projects |
+|:---------:|:--------:|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Projects](docs/screenshots/projects.png) |
+
+| Tasks with filters | Swagger API |
+|:-----------------:|:-----------:|
+| ![Tasks](docs/screenshots/tasks-filters.png) | ![Swagger](docs/screenshots/swagger.png) |
+
+<details>
+<summary>Polish language / Wersja polska 🇵🇱</summary>
+
+![Polish](docs/screenshots/polish.png)
+
+</details>
 
 ## Tech Stack
 
