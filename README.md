@@ -1,7 +1,7 @@
 # Task Management System
 
-![CI](https://github.com/PatrykStepienPro/TaskManagementSystem/actions/workflows/ci.yml/badge.svg)
-![Docker Build](https://github.com/PatrykStepienPro/TaskManagementSystem/actions/workflows/docker.yml/badge.svg)
+![CI](https://img.shields.io/github/actions/workflow/status/PatrykStepienPro/TaskManagementSystem/ci.yml?label=CI&logo=githubactions&logoColor=white)
+![Docker Build](https://img.shields.io/github/actions/workflow/status/PatrykStepienPro/TaskManagementSystem/docker.yml?label=Docker+Build&logo=docker&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
 ![EF Core](https://img.shields.io/badge/EF_Core-8.0-512BD4?logo=dotnet&logoColor=white)
 ![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?logo=microsoftsqlserver&logoColor=white)
